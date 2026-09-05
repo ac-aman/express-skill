@@ -1,85 +1,71 @@
 # express-skill
 
-> An open, production-ready AI Agent Skill for Express.js development. Compatible with `npx skills`, Antigravity, Claude Desktop, Cursor, and custom agentic AI systems.
+> An open, production-ready AI Agent Skill for building scalable, secure Express.js applications. Compatible with `npx skills`, Claude Code, Cursor, Antigravity, and AI coding assistants.
 
 ---
 
 ## Overview
 
-`express-skill` equips AI agents with standard patterns, clean 4-layer architecture workflows, production security defaults, and modular reference blueprints for Express.js applications.
+`express-skill` provides AI coding assistants with standardized architectural guidelines, production security defaults, and proven middleware patterns when developing Express.js applications. 
+
+By equipping your agent with this skill, it automatically enforces clean separation of concerns, strict input validation, centralized error handling, and security best practices without requiring repeated prompt instructions.
 
 ---
 
-## Features
+## Features & Capabilities
 
-- **Layered Architecture**: Enforces clear separation between Routes, Controllers, Services, and Repositories.
-- **Strict Request Validation**: Integrated `zod` schemas for incoming payloads.
-- **Production Middleware**: Reusable error handler, JWT auth middleware, async wrapper, and logger setup.
-- **Security Defaults**: OWASP-aligned standards with `helmet`, `cors`, and `express-rate-limit`.
-- **TypeScript & JavaScript Blueprints**: Pre-scaffolded starter code templates.
-
----
-
-## Skill Directory Structure
-
-```text
-express-skill/
-├── package.json             # NPM package manifest
-├── README.md                # Skill documentation & publishing guide
-├── LICENSE                  # MIT License
-├── .gitignore               # Git & NPM ignore rules
-└── skills/
-    └── express-skill/
-        ├── SKILL.md         # Core agent instructions & metadata (YAML frontmatter)
-        ├── references/      # Detailed modular guides loaded on demand
-        │   ├── architecture.md
-        │   ├── middleware.md
-        │   └── security.md
-        └── templates/       # Boilerplate starters
-            ├── express-ts-starter.md
-            └── express-js-starter.md
-```
+- **Layered Architecture**: Enforces clean 4-layer separation (Routes ➔ Thin Controllers ➔ Domain Services ➔ Repositories/Models).
+- **Strict Request Validation**: Uses `zod` schemas to validate body, query, and route params before reaching business logic.
+- **Production Middleware**: Reusable patterns for global error handling, JWT authentication, async wrappers, and structured logging.
+- **OWASP Security Defaults**: Best practices for `helmet`, CORS restriction, rate limiting, and safe payload boundaries.
+- **TypeScript & JavaScript Starters**: Modular blueprints for rapid project scaffolding.
 
 ---
 
-## Installation & Usage
+## Installation Guide
 
-### Option 1: Via `npx skills` (GitHub Repository)
-Push this repository to GitHub and install it into any workspace:
+### Option 1: Install via `npx skills` (Recommended)
+
+Add `express-skill` directly to your project workspace or global AI agent configuration:
+
 ```bash
+# Add to your current project
 npx skills add ac-aman/express-skill
+
+# Or install specifically for Claude Code
+npx skills add ac-aman/express-skill --agent claude-code
+
+# Or install globally for all AI agents
+npx skills add ac-aman/express-skill -g
 ```
 
-### Option 2: Via NPM (`npm install`)
-Publish to NPM registry so agents or tools can discover it:
+### Option 2: Install via NPM
+
+Install the package directly into your project dependencies:
+
 ```bash
 npm install express-skill
 ```
 
+Sync skills automatically using `npx skills`:
+```bash
+npx skills experimental_sync
+```
+
 ---
 
-## Publishing Guide
+## Supported AI Agents & Tools
 
-### Step 1: Login to NPM
-Ensure you have an account on [npmjs.com](https://www.npmjs.com/) and log in via CLI:
-```bash
-npm login
-```
+This skill follows the open [`SKILL.md`](https://skills.sh) standard and is natively supported by:
 
-### Step 2: Validate Package Files
-Test which files will be included in your npm tarball:
-```bash
-npm pack --dry-run
-```
-
-### Step 3: Publish to NPM
-Publish the skill publicly:
-```bash
-npm publish --access public
-```
+- **Claude Code** & **Claude Desktop**
+- **Cursor**
+- **Antigravity**
+- **GitHub Copilot**
+- **Custom Agentic Workflows**
 
 ---
 
 ## License
 
-[MIT](./LICENSE)
+[MIT](./LICENSE) © [ac-aman](https://github.com/ac-aman)
