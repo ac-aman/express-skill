@@ -44,7 +44,7 @@ npx skills add ac-aman/express-skill -g
 Install the package directly into your project dependencies:
 
 ```bash
-npm install express-skill
+npm install -D express-skill
 ```
 
 Sync skills automatically using `npx skills`:
