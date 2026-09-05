@@ -66,6 +66,12 @@ This skill follows the open [`SKILL.md`](https://skills.sh) standard and is nati
 
 ---
 
+## Contributing
+
+Contributions are welcome! Please check out the [Contributing Guide](./CONTRIBUTING.md) to get started.
+
+---
+
 ## License
 
 [MIT](./LICENSE) © [ac-aman](https://github.com/ac-aman)
