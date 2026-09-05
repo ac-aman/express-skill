@@ -1,0 +1,36 @@
+{
+  "name": "express-skill",
+  "version": "1.0.0",
+  "description": "An open AI Agent Skill for building robust, secure, and production-ready Express.js applications.",
+  "main": "skills/express-skill/SKILL.md",
+  "files": [
+    "skills",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "express",
+    "expressjs",
+    "agent-skill",
+    "skills",
+    "npx-skills",
+    "antigravity",
+    "ai-agent",
+    "claude",
+    "cursor",
+    "copilot"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ac-aman/express-skill.git"
+  },
+  "author": "ac-aman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ac-aman/express-skill/issues"
+  },
+  "homepage": "https://github.com/ac-aman/express-skill#readme"
+}
