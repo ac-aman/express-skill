@@ -1,49 +1,53 @@
 ---
-title: Implementation Safety & Anti-Hallucination Guideline
+title: Dependencies & Anti-Hallucination Guideline (Generic)
 category: guidelines
 ---
 
-# Implementation Safety Rules (Anti-Hallucination)
+# Dependencies & Anti-Hallucination Guidelines
 
-When building or refactoring Express.js applications, agents must follow strict operational rules to avoid inventing dependencies, introducing unneeded abstractions, or breaking existing codebase functionality.
-
----
-
-## 1. Do Not Invent Project Details
-
-Before modifying an existing Express project:
-
-1. **Inspect Existing Code**: Read `package.json` and directory structure before generating code.
-2. **Identify Core Tech Stack**: Determine the existing database, ORM/ODM (Prisma, TypeORM, Mongoose), validation library (Zod, Joi), and auth mechanism.
-3. **Reuse Existing Patterns**: Align with established project conventions when they are consistent and maintainable.
-4. **Do Not Invent Files or Dependencies**: Never assume a library is installed without checking `package.json`.
-5. **Do Not Invent Environment Variables or Schema Fields**: Ensure environment variables and database models exist before referencing them.
-6. **Do Not Replace Established Architecture**: Do not rewrite a project's architecture without an explicit instruction to do so.
+This guideline defines architecture-agnostic rules for package dependency inspection, anti-hallucination, avoiding wheel-reinvention by using well-maintained libraries, and managing npm packages in Express.js backends.
 
 ---
 
-## 2. Preserve Existing Behavior
+## 1. Zero Package Hallucination Rules
 
-When refactoring code:
-
-1. **Understand Before Modifying**: Fully read and analyze existing logic before making edits.
-2. **Preserve Public Contracts**: Maintain API request/response format, status codes, and query params unless instructed to change behavior.
-3. **Move Before Rewriting**: When splitting large files, move existing working code to new files first before attempting refactoring.
-4. **Update All Import Statements**: Check and update all import/export references across the codebase after moving files.
-5. **Do Not Delete Functional Code**: Never remove logic simply because its purpose is not immediately obvious.
+1. **Read `package.json` First**: Before generating imports or modifying code, inspect `package.json` (`dependencies` and `devDependencies`).
+2. **Never Assume a Package is Installed**: Do NOT import any library (e.g. `zod`, `axios`, `prisma`, `helmet`, `http-status-codes`, `joi`, `bcrypt`) unless explicitly listed in `package.json`.
+3. **Reuse Existing Project Stack**: Use the established library installed in the project. Do not introduce competing libraries (e.g., do not add `Joi` if `Zod` is installed; do not add `TypeORM` if `Prisma` is installed).
 
 ---
 
-## 3. Do Not Generate Placeholder Architecture
+## 2. Prefer Maintained Libraries Over Custom Boilerplate
 
-Avoid creating empty abstractions merely because an architectural pattern supports them.
+Do not write massive custom utility functions when a standard, well-maintained ecosystem library handles the responsibility cleanly.
 
-Do NOT generate empty or unused:
-- `factories/`
-- `adapters/`
-- `ports/`
-- `interfaces/`
-- `events/`
-- `mappers/`
+| Domain | Preferred Maintained Library | Reason / Responsibility |
+| :--- | :--- | :--- |
+| **Input Validation** | `zod` or `joi` | Schema validation, type coercion, type inference |
+| **Async Error Handling** | `express-async-errors` | Eliminates manual `try/catch` boilerplate in controllers |
+| **HTTP Status Codes** | `http-status-codes` | Eliminates magic status numbers (`200`, `404`, `500`) |
+| **Security Headers** | `helmet` | Automated HTTP security headers (HSTS, CSP, X-Frame) |
+| **CORS** | `cors` | Cross-Origin Resource Sharing middleware |
+| **Rate Limiting** | `express-rate-limit` | Preventing brute force and DoS attacks |
+| **Environment Management** | `dotenv` | Loading `.env` into `process.env` |
+| **Password Hashing** | `bcrypt` / `bcryptjs` / `argon2` | Secure password hashing & verification |
+| **JWT Authentication** | `jsonwebtoken` | Signing & verifying JWT tokens |
+| **HTTP Testing** | `supertest` | End-to-end integration testing of Express routes |
 
-Architecture must follow actual project requirements, not theoretical completeness.
+---
+
+## 3. Handling Missing Maintained Libraries (TODO Protocol)
+
+If a task requires boilerplate best solved by a maintained library, but the package is **NOT** present in `package.json`:
+1. Do **NOT** import the missing library directly (`MODULE_NOT_FOUND` crash).
+2. Do **NOT** write 500 lines of custom replacement code.
+3. Use the TODO Protocol (see [code-comments-and-todos.md](./code-comments-and-todos.md)): Insert an explicit comment instructing to install the package (e.g., `// TODO: Install 'http-status-codes' (npm install http-status-codes)`).
+
+---
+
+## 4. Agent Verification Checklist
+
+- [ ] Has `package.json` been inspected before introducing imports?
+- [ ] Are all imported libraries verified to exist in `package.json`?
+- [ ] Are existing installed libraries reused rather than adding duplicate alternatives?
+- [ ] Are missing library recommendations clearly documented with `// TODO: npm install <package>` comments per [code-comments-and-todos.md](./code-comments-and-todos.md)?

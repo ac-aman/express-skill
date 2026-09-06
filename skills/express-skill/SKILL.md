@@ -17,7 +17,7 @@ metadata:
 
 # Express.js Development & Orchestration Guide
 
-Use this skill when creating, extending, or refactoring Express.js backend applications. 
+Use this skill when creating, extending, or refactoring Express.js backend applications.
 
 This document serves as the **execution, orchestration, and reference loading guide** for AI coding agents. Detailed architecture specifications, folder trees, and code rules are maintained inside dedicated reference files under `references/`.
 
@@ -25,7 +25,7 @@ This document serves as the **execution, orchestration, and reference loading gu
 
 ## Purpose & Objective
 
-The objective of this skill is to guide agents to reliably produce Express.js codebases that are:
+Guide agents to reliably produce Express.js codebases that are:
 - Well-organized around business modules or features.
 - Built with small, cohesive files rather than oversized dumping grounds.
 - Scaled via progressive decomposition without unnecessary upfront abstractions.
@@ -35,8 +35,6 @@ The objective of this skill is to guide agents to reliably produce Express.js co
 ---
 
 ## Agent Execution Workflow
-
-When tasked with creating or modifying an Express project, follow this sequence:
 
 ```text
 User Request
@@ -60,79 +58,74 @@ User Request
 
 ---
 
-## 1. Project Inspection Instructions (Anti-Hallucination & Evidence Rules)
+## 1. Project Inspection Rules (Anti-Hallucination)
 
-Before creating or editing code in an existing codebase, you **must** gather empirical evidence:
+Before creating or editing code in an existing codebase, gather empirical evidence:
 
-1. **Inspect Directory Structure**: Examine existing source directories to understand the established layout.
-2. **Inspect `package.json`**:
-   - Check installed dependencies (e.g. Express, TypeScript, ORM/ODM libraries like Prisma/TypeORM/Mongoose, validation libraries like Zod/Joi).
-   - Do **not** import or use a library that is not present in `package.json`.
-3. **Inspect Database & Infrastructure Usage**: Identify existing ORM schemas, database connection files, and environment variable conventions before referencing models or configuration.
+1. **Inspect Directory Structure**: Examine existing source directories to understand established layouts.
+2. **Inspect `package.json`**: Check installed `dependencies` and `devDependencies`. Never import an uninstalled package.
+3. **Inspect Infrastructure & DB**: Identify ORM schemas, database clients, and environment variables before referencing them.
 4. **Identify Established Conventions**: Align new code with existing naming and file patterns unless instructed to refactor.
-5. **Never Invent Missing Context**: If an API, schema, or configuration detail is missing, inspect the workspace or ask for clarification rather than assuming.
+5. **Never Invent Missing Context**: If an API contract or schema is missing, ask for clarification or use explicit `// TODO:` comments instead of assuming.
 
 ---
 
-## 2. Architecture Selection & Reference Loading Rules
+## 2. Architecture Selection & Reference Loading
 
-Determine the target architecture using the following rules:
-
-1. **New Projects (Default)**: Use **Modular Architecture** by default.
-2. **Existing Projects**: Preserve the project's existing established architecture unless the user explicitly requests an architectural migration.
-3. **Explicit User Request**: If the user explicitly requests a specific architecture (e.g. Clean, DDD, Layered, Hexagonal, Simple), select that requested architecture.
+Determine the target architecture:
+- **New Projects**: Use **Modular Architecture** by default.
+- **Existing Projects**: Preserve the project's established architecture unless migration is requested.
+- **Explicit User Request**: Load requested architecture file (`references/architectures/<name>.md`).
 
 ### Architecture Reference Mapping
 
-Once selected, you **must** load and read the corresponding reference file before generating or modifying code:
+Load and read the target architecture specification before writing code:
 
-| Architecture Name | Reference File Path | Primary Use Case |
+| Architecture | Reference File Path | Primary Use Case |
 | :--- | :--- | :--- |
-| **Modular** (Default) | `[references/architectures/modular.md](./references/architectures/modular.md)` | Feature-rich, scalable, and maintainable Express applications |
+| **Modular** (Default) | `[references/architectures/modular.md](./references/architectures/modular.md)` | Feature-rich, scalable, maintainable Express applications |
 | **Layered** | `[references/architectures/layered.md](./references/architectures/layered.md)` | Traditional Controller-Service-Repository applications |
-| **Simple** | `[references/architectures/simple.md](./references/architectures/simple.md)` | Very small APIs, prototypes, or single-purpose scripts |
-| **Clean** | `[references/architectures/clean.md](./references/architectures/clean.md)` | Explicit requirement for strong dependency inversion & framework decoupling |
-| **DDD** | `[references/architectures/ddd.md](./references/architectures/ddd.md)` | Complex domain logic with aggregates, value objects & domain events |
+| **Simple** | `[references/architectures/simple.md](./references/architectures/simple.md)` | Microservices, prototypes, or single-purpose scripts (<5 endpoints) |
+| **Clean** | `[references/architectures/clean.md](./references/architectures/clean.md)` | Strict dependency inversion & framework decoupling |
+| **DDD** | `[references/architectures/ddd.md](./references/architectures/ddd.md)` | Complex domain logic with Bounded Contexts & Aggregates |
 | **Hexagonal** | `[references/architectures/hexagonal.md](./references/architectures/hexagonal.md)` | Multi-adapter systems (Ports & Adapters pattern) |
 
 ---
 
-## 3. Mandatory Operational Guidelines
+## 3. Operational Guidelines Index
 
-In addition to reading the architecture reference, read the relevant guideline files for code organization rules:
+Load relevant guideline files based on task requirements:
 
-- **Responsibility-Based Code Splitting**: `[references/guidelines/large-files.md](./references/guidelines/large-files.md)`
-- **Module Boundaries & Public Interfaces**: `[references/guidelines/module-boundaries.md](./references/guidelines/module-boundaries.md)`
-- **File & Directory Organization**: `[references/guidelines/file-organization.md](./references/guidelines/file-organization.md)`
+- **TypeScript Standards & Type Safety**: `[references/guidelines/typescript.md](./references/guidelines/typescript.md)`
+- **Code Organization**: `[references/guidelines/code-organization.md](./references/guidelines/code-organization.md)`
+- **File Size & Decomposition**: `[references/guidelines/file-size-and-decomposition.md](./references/guidelines/file-size-and-decomposition.md)`
+- **Naming Conventions**: `[references/guidelines/naming.md](./references/guidelines/naming.md)`
+- **Dependencies & Inspection**: `[references/guidelines/dependencies.md](./references/guidelines/dependencies.md)`
+- **Centralized Error Handling**: `[references/guidelines/error-handling.md](./references/guidelines/error-handling.md)`
+- **Input Validation**: `[references/guidelines/validation.md](./references/guidelines/validation.md)`
+- **Configuration & Environment**: `[references/guidelines/configuration.md](./references/guidelines/configuration.md)`
+- **Security Standards**: `[references/guidelines/security.md](./references/guidelines/security.md)`
+- **Testing Strategy**: `[references/guidelines/testing.md](./references/guidelines/testing.md)`
+- **RESTful API Design**: `[references/guidelines/api-design.md](./references/guidelines/api-design.md)`
 - **Safe Refactoring Workflow**: `[references/guidelines/refactoring.md](./references/guidelines/refactoring.md)`
+- **Comments & TODO Protocol**: `[references/guidelines/code-comments-and-todos.md](./references/guidelines/code-comments-and-todos.md)`
 
 ---
 
 ## 4. General Execution Rules
 
-1. **Avoid Oversized Dumping Grounds**: Do not place unrelated responsibilities into single controllers, services, repositories, or routes.
-2. **Split by Cohesion, Not Line Count**: Decompose files when they contain multiple independent responsibilities or capabilities—never split artificially just to meet a line count.
-3. **Progressive Decomposition**: Start with simple file layouts. Create subdirectories or capability subfolders only when a module's complexity justifies them.
-4. **Zero Unnecessary Abstractions**: Do not create empty interfaces, ports, adapters, or factories unless required by the target architecture or current implementation needs.
+1. **Avoid Oversized Files**: Decompose files by responsibility and capability when multiple use cases accumulate.
+2. **Progressive Decomposition**: Start with simple file layouts. Add subdirectories or capability subfolders only when complexity demands it.
+3. **Zero Unnecessary Abstractions**: Do not create empty interfaces, ports, adapters, or factories unless required by the target architecture.
+4. **Preserve API Contracts**: Never alter route URLs, HTTP methods, status codes, or payload schemas during structural refactoring.
 
 ---
 
-## 5. Refactoring Workflow
+## 5. Verification Checklist
 
-When refactoring or restructuring existing code:
-
-1. **Analyze Existing Behavior**: Read and understand the full logic of the code before attempting edits.
-2. **Preserve Public API Contracts**: Ensure HTTP routes, request parameters, status codes, and response schemas remain intact unless changes are explicitly requested.
-3. **Move Before Rewriting**: Extract logic into focused files first, then verify behavior before refactoring internal implementation.
-4. **Update Imports & References**: Search for all consumers of moved or renamed symbols and update their import paths.
-
----
-
-## 6. Verification Workflow
-
-Before completing any task, execute the following verification steps:
-
-1. **Syntax & Import Check**: Verify that all newly created or moved files have correct relative import paths and exports.
-2. **Module Boundary Check**: Ensure internal files of a module are not directly imported by other modules (imports should pass through `index.ts`).
-3. **Dependency Alignment**: Verify no unlisted npm packages or unconfigured environment variables were introduced.
-4. **Empirical Test & Build**: Run existing build or test commands (e.g. `npm run build`, `npm test`) if available in the workspace to confirm zero regressions.
+- [ ] Has `package.json` been inspected before introducing imports?
+- [ ] Has the target architecture guide been loaded and followed?
+- [ ] Are TypeScript standards followed (`strict: true`, zero `any`, explicit return types)?
+- [ ] Are module boundaries (`index.ts`) respected without deep internal file reaching?
+- [ ] Are missing rules or uninstalled packages annotated with explicit `// TODO:` comments?
+- [ ] Do existing build and test scripts pass cleanly?
