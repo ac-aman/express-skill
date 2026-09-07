@@ -17,7 +17,7 @@ Equipping your AI agent with `express-skill` yields measurable codebase improvem
 | **Oversized Dumping Ground Files** | High (1000+ line controllers/services) | **0%** (Responsibility-based splitting & progressive decomposition) | **95% Reduction** |
 | **Security Leakage Risk** | High (Leaked stack traces, `x-powered-by`, open CORS) | **0%** (Strict zero-leakage, mandatory default-deny auth/RBAC) | **100% Protection** |
 | **Dependency Hallucination** | Frequent (`MODULE_NOT_FOUND` runtime crashes) | **0%** (Strict `package.json` inspection & `// TODO:` protocol) | **Zero Hallucination** |
-| **Context Token Consumption** | High (Forcing long architecture rules in every prompt) | **~800 Tokens** (Progressive disclosure: loads detailed guides on-demand) | **~85% Token Savings** |
+| **Context Token Consumption** | High (Forcing long architecture rules in every prompt) | **~1,425 Tokens** (Progressive disclosure: loads detailed guides on-demand) | **~85% Token Savings** |
 | **Code Maintainability Index** | Low / Variable | **High** (Strict TypeScript `no-any`, standardized response envelopes) | **+85% Maintainability** |
 
 ---
@@ -49,7 +49,7 @@ your-project/
 
 ### 2. How the Agent Uses This Skill (Progressive Disclosure)
 
-1. When you ask your AI agent to build or refactor an Express application, the agent detects `express-skill` and loads **`SKILL.md`** (~`[SKILL_MD_TOKENS]` tokens).
+1. When you ask your AI agent to build or refactor an Express application, the agent detects `express-skill` and loads **`SKILL.md`** (~`1,425` tokens).
 2. `SKILL.md` acts as an orchestration runner, instructing the agent to:
    - Inspect `package.json` and directory context.
    - Select the target architecture (**Modular Architecture** by default).
@@ -60,30 +60,30 @@ your-project/
 
 ## 📁 Skill File Manifest & Context Token Accounting
 
-The table below outlines the structure of `express-skill` along with approximate context token footprints. You can replace the `[TOKEN_COUNT]` placeholders with exact measured token counts.
+The table below outlines the structure of `express-skill` along with exact context token footprints:
 
-| File Path | Description | Approx. Tokens |
+| File Path | Description | Exact Tokens |
 | :--- | :--- | :--- |
-| **`SKILL.md`** | Main orchestration runner, decision tree, inspection rules & guideline index | `~[SKILL_MD_TOKENS]` |
-| **`references/architectures/modular.md`** | **Primary Default**: 3-stage progressive decomposition, module boundary & encapsulation | `~[MODULAR_ARCH_TOKENS]` |
-| **`references/architectures/layered.md`** | Controller-Service-Repository 3-tier horizontal specification | `~[LAYERED_ARCH_TOKENS]` |
-| **`references/architectures/simple.md`** | Single-file / minimal architecture for microservices & prototypes (<5 endpoints) | `~[SIMPLE_ARCH_TOKENS]` |
-| **`references/architectures/clean.md`** | Concentric Clean Architecture & inward Dependency Inversion Ring 1 → 4 rules | `~[CLEAN_ARCH_TOKENS]` |
-| **`references/architectures/ddd.md`** | Strategic Bounded Contexts, Aggregates, Value Objects & Domain Events | `~[DDD_ARCH_TOKENS]` |
-| **`references/architectures/hexagonal.md`** | Ports & Adapters guide for multi-interface systems (REST, gRPC, CLI) | `~[HEXAGONAL_ARCH_TOKENS]` |
-| **`references/guidelines/typescript.md`** | Strict TypeScript type safety, zero `any`, `.d.ts` Express Request augmentation | `~[TYPESCRIPT_GUIDE_TOKENS]` |
-| **`references/guidelines/code-organization.md`** | Architecture-agnostic bootstrap separation (`server.ts` vs `app.ts`) & config isolation | `~[CODE_ORG_TOKENS]` |
-| **`references/guidelines/file-size-and-decomposition.md`** | Single responsibility splitting & progressive decomposition lifecycle | `~[DECOMPOSITION_TOKENS]` |
-| **`references/guidelines/naming.md`** | Kebab-case file naming, role suffixes, symbol casing & REST URI conventions | `~[NAMING_TOKENS]` |
-| **`references/guidelines/dependencies.md`** | Inspection rules, avoiding custom wheel-reinvention using maintained libraries | `~[DEPENDENCIES_TOKENS]` |
-| **`references/guidelines/error-handling.md`** | Operational vs programmer errors, `AppError` hierarchy, centralized error middleware | `~[ERROR_HANDLING_TOKENS]` |
-| **`references/guidelines/validation.md`** | Schema validation middleware (`validate(schema)`), Zod co-location, fail-fast 400s | `~[VALIDATION_TOKENS]` |
-| **`references/guidelines/configuration.md`** | Type-safe environment variable parsing (`dotenv` + `zod`), fail-fast startup checks | `~[CONFIG_TOKENS]` |
-| **`references/guidelines/security.md`** | Strict zero-leakage, mandatory default-deny auth/RBAC, strict CORS, security suite | `~[SECURITY_TOKENS]` |
-| **`references/guidelines/testing.md`** | Unit testing with mocks, end-to-end endpoint integration testing (`supertest`) | `~[TESTING_TOKENS]` |
-| **`references/guidelines/api-design.md`** | RESTful URL conventions, 4-phase request lifecycle, universal `{ success, data }` envelope | `~[API_DESIGN_TOKENS]` |
-| **`references/guidelines/refactoring.md`** | Safe refactoring sequence, contract preservation, workspace import updating | `~[REFACTORING_TOKENS]` |
-| **`references/guidelines/code-comments-and-todos.md`** | Centralized readable mini-comments rule & mandatory `// TODO:` protocol | `~[COMMENTS_TODOS_TOKENS]` |
+| **`SKILL.md`** | Main orchestration runner, decision tree, inspection rules & guideline index | **1,425** |
+| **`references/architectures/modular.md`** | **Primary Default**: 3-stage progressive decomposition, module boundary & encapsulation | **2,220** |
+| **`references/architectures/hexagonal.md`** | Ports & Adapters guide for multi-interface systems (REST, gRPC, CLI) | **1,328** |
+| **`references/architectures/clean.md`** | Concentric Clean Architecture & inward Dependency Inversion Ring 1 → 4 rules | **1,269** |
+| **`references/architectures/ddd.md`** | Strategic Bounded Contexts, Aggregates, Value Objects & Domain Events | **1,209** |
+| **`references/architectures/layered.md`** | Controller-Service-Repository 3-tier horizontal specification | **981** |
+| **`references/architectures/simple.md`** | Single-file / minimal architecture for microservices & prototypes (<5 endpoints) | **717** |
+| **`references/guidelines/security.md`** | Strict zero-leakage, mandatory default-deny auth/RBAC, strict CORS, security suite | **1,872** |
+| **`references/guidelines/error-handling.md`** | Operational vs programmer errors, `AppError` hierarchy, centralized error middleware | **1,212** |
+| **`references/guidelines/api-design.md`** | RESTful URL conventions, 4-phase request lifecycle, universal `{ success, data }` envelope | **1,061** |
+| **`references/guidelines/testing.md`** | Unit testing with mocks, end-to-end endpoint integration testing (`supertest`) | **890** |
+| **`references/guidelines/typescript.md`** | Strict TypeScript type safety, zero `any`, `.d.ts` Express Request augmentation | **881** |
+| **`references/guidelines/naming.md`** | Kebab-case file naming, role suffixes, symbol casing & REST URI conventions | **866** |
+| **`references/guidelines/configuration.md`** | Type-safe environment variable parsing (`dotenv` + `zod`), fail-fast startup checks | **847** |
+| **`references/guidelines/validation.md`** | Schema validation middleware (`validate(schema)`), Zod co-location, fail-fast 400s | **827** |
+| **`references/guidelines/refactoring.md`** | Safe refactoring sequence, contract preservation, workspace import updating | **786** |
+| **`references/guidelines/file-size-and-decomposition.md`** | Single responsibility splitting & progressive decomposition lifecycle | **768** |
+| **`references/guidelines/code-organization.md`** | Architecture-agnostic bootstrap separation (`server.ts` vs `app.ts`) & config isolation | **748** |
+| **`references/guidelines/dependencies.md`** | Inspection rules, avoiding custom wheel-reinvention using maintained libraries | **735** |
+| **`references/guidelines/code-comments-and-todos.md`** | Centralized readable mini-comments rule & mandatory `// TODO:` protocol | **547** |
 
 ---
 
