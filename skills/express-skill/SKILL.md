@@ -4,7 +4,7 @@ description: Execution guide for building and refactoring Express.js backends us
 license: MIT
 metadata:
   author: "ac-aman"
-  version: "1.0.0"
+  version: "1.0.4"
   tags:
     - express
     - node
