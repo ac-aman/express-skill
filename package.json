@@ -1,6 +1,6 @@
 {
   "name": "express-skill",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "An open AI Agent Skill for building robust, secure, and production-ready Express.js applications.",
   "main": "skills/express-skill/SKILL.md",
   "files": [
